@@ -1,5 +1,9 @@
-body{
-    background-color: #69359C;
-    color: white;
-    text-align: center;
+body {
+  background-color: #69359c;
+  color: white;
+  text-align: center;
+}
+
+canvas {
+    background-color: black;
 }
