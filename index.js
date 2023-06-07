@@ -1,82 +1,103 @@
 // querySelector(), can select based on class or id
 const canvas = document.querySelector("#canvas");
 const context = canvas.getContext("2d");
-
 const displayWidth = canvas.width;
 const displayHeight = canvas.height;
-
-// grid should be 10 by 20, tetris is 10 by 20
-// or 10 x 24
 const gridWidth = 24;
 const gridHeight = 24;
-
-const cellWidth = displayWidth / gridWidth;
-const cellHeight = displayHeight / gridHeight;
-
-// x, y, width, height is the fillRect parameters
+const minimumDisplayScale = Math.min(displayHeight, displayWidth);
+const cellWidth = minimumDisplayScale / gridWidth;
+const cellHeight = minimumDisplayScale / gridHeight;
 
 // canvas is black
-function main() {
+function blackPlayScreen() {
   context.fillStyle = "black";
-  context.fillRect(0, 0, displayWidth, displayHeight);
-  // for (let x = 0; x < gridWidth; x++) {
-  //   for (let y = 0; y < gridHeight; y++) {
-  //     drawCell(x, y);
-  //   }
-  // }
-  // 7 x
-  context.fillStyle = "grey";
-  context.fillRect(0, 0, displayWidth / 4 + 18, displayHeight);
-  // context.fillStyle = "purple";
-  // context.fillRect(23, 23, displayWidth /4 , displayHeight);
+  context.fillRect(175, 0, displayWidth/24*10, displayHeight);
+  context.fillStyle = "white";
 }
-main();
 
 // tetris is 10 cells wide and 20 cells tall
-function drawCell(x, y) {
-  context.fillStyle = "white";
+function greyWalls() {
+  for (i = 0; i < displayWidth; i++) {
+    for (j = 0; j < displayHeight; j++) {
+      drawCell(i, j, "grey");
+    }
+  }
+}
+
+/* colored cells*/
+
+function drawCell(x, y, color = "white") {
+  context.fillStyle = color;
   context.fillRect(
-    x * cellWidth + 2.5,
-    y * cellHeight + 2.5,
+    x * cellWidth + 0.5,
+    y * cellHeight + 0.5,
     cellWidth - 1,
     cellHeight - 1
   );
 }
 
-// test cells
-
-drawCell(7, 23);
-drawCell(8, 23);
-drawCell(9, 23);
-drawCell(10, 23);
-drawCell(11, 23);
-drawCell(12, 23);
-drawCell(13, 23);
-drawCell(14, 23);
-drawCell(15, 23);
-drawCell(16, 23);
-// drawCell(23, 23);
-
 // tetrominos
-function orangeRicky() {}
+function orangeRicky(x, y) {
+  drawCell();
+  drawCell();
+  drawCell();
+  drawCell();
+}
 
-function blueRickey() {}
+function blueRickey(x, y) {
+  drawCell();
+  drawCell();
+  drawCell();
+  drawCell();
+}
 
-function smashBoy() {}
+function smashBoy(x, y) {
+  drawCell();
+  drawCell();
+  drawCell();
+  drawCell();
+}
 
-function clevelandZ() {}
+function clevelandZ(x, y) {
+  drawCell();
+  drawCell();
+  drawCell();
+  drawCell();
+}
 
-function rhodeIslandZ() {}
+function rhodeIslandZ(x, y) {
+  drawCell();
+  drawCell();
+  drawCell();
+  drawCell();
+}
 
-function teeWee() {}
+function teeWee(x, y) {
+  drawCell();
+  drawCell();
+  drawCell();
+  drawCell();
+}
 
-function hero() {}
+function hero(x = 0, y = 0) {
+  drawCell(x, y);
+  drawCell(x, y + 1);
+  drawCell(x, y + 2);
+  drawCell(x, y + 3);
+}
+
+// other function calls (order goes from most behind layer to most forward layer)
+
+greyWalls();
+blackPlayScreen();
 
 // function calls for tetrominos
 orangeRicky();
 blueRickey();
 smashBoy();
-teeWee();
 clevelandZ();
 rhodeIslandZ();
-hero();
+teeWee();
+// increment the y to go down, 12 is the starting point for every tetromino that comes into
+hero(12, 0);
