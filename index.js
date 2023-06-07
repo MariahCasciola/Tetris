@@ -6,84 +6,77 @@ const displayWidth = canvas.width;
 const displayHeight = canvas.height;
 
 // grid should be 10 by 20, tetris is 10 by 20
-// or 10 x 24 
-const gridWidth = 10;
-const gridHeight = 20;
+// or 10 x 24
+const gridWidth = 24;
+const gridHeight = 24;
 
 const cellWidth = displayWidth / gridWidth;
 const cellHeight = displayHeight / gridHeight;
 
 // x, y, width, height is the fillRect parameters
+
 // canvas is black
 function main() {
   context.fillStyle = "black";
   context.fillRect(0, 0, displayWidth, displayHeight);
+  // for (let x = 0; x < gridWidth; x++) {
+  //   for (let y = 0; y < gridHeight; y++) {
+  //     drawCell(x, y);
+  //   }
+  // }
+  // 7 x
+  context.fillStyle = "grey";
+  context.fillRect(0, 0, displayWidth / 4 + 18, displayHeight);
+  // context.fillStyle = "purple";
+  // context.fillRect(23, 23, displayWidth /4 , displayHeight);
 }
 main();
 
 // tetris is 10 cells wide and 20 cells tall
 function drawCell(x, y) {
   context.fillStyle = "white";
-  context.fillRect(x, y, cellWidth, cellHeight)
+  context.fillRect(
+    x * cellWidth + 2.5,
+    y * cellHeight + 2.5,
+    cellWidth - 1,
+    cellHeight - 1
+  );
 }
 
-drawCell(1,1)
-drawCell(cellWidth, cellHeight);
-drawCell(cellWidth*2, cellHeight*2);
+// test cells
 
-// function renderOrangeRicky() {
-//   drawCell(50, 20);
-//   drawCell(50, 41);
-//   drawCell(50, 62);
-//   drawCell(71, 62);
-// }
+drawCell(7, 23);
+drawCell(8, 23);
+drawCell(9, 23);
+drawCell(10, 23);
+drawCell(11, 23);
+drawCell(12, 23);
+drawCell(13, 23);
+drawCell(14, 23);
+drawCell(15, 23);
+drawCell(16, 23);
+// drawCell(23, 23);
 
-// function renderBlueRickey() {
-//   drawCell(100, 20);
-//   drawCell(121, 20);
-//   drawCell(121, 41);
-//   drawCell(121, 62);
-// }
+// tetrominos
+function orangeRicky() {}
 
-// function smashBoy() {
-//   drawCell(160, 20);
-//   drawCell(160, 41);
-//   drawCell(181, 41);
-//   drawCell(181, 20);
-// }
+function blueRickey() {}
 
-// function clevelandZ() {
-//   drawCell(220, 20);
-//   drawCell(241, 41);
-//   drawCell(241, 20);
-//   drawCell(262, 41);
-// }
+function smashBoy() {}
 
-// function rhodeIslandZ() {
-//   drawCell(290, 41);
-//   drawCell(311, 41);
-//   drawCell(311, 20);
-//   drawCell(332, 20);
-// }
+function clevelandZ() {}
 
-// function teeWee() {
-//   drawCell(50, 121);
-//   drawCell(71, 121);
-//   drawCell(71, 100);
-//   drawCell(92, 121);
-// }
+function rhodeIslandZ() {}
 
-// function hero() {
-//   drawCell(130, 100);
-//   drawCell(151, 100);
-//   drawCell(172, 100);
-//   drawCell(193, 100);
-// }
+function teeWee() {}
 
-// renderOrangeRicky();
-// renderBlueRickey();
-// smashBoy();
-// teeWee();
-// clevelandZ();
-// rhodeIslandZ();
-// hero();
+function hero() {}
+
+// function calls for tetrominos
+orangeRicky();
+blueRickey();
+smashBoy();
+teeWee();
+clevelandZ();
+rhodeIslandZ();
+hero();
