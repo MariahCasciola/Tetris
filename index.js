@@ -100,4 +100,4 @@ clevelandZ();
 rhodeIslandZ();
 teeWee();
 // increment the y to go down, 12 is the starting point for every tetromino that comes into
-hero(12, 0);
+hero(12, 7);

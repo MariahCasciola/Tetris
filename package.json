@@ -1,0 +1,22 @@
+{
+  "name": "tetris-in-canvas",
+  "version": "1.0.0",
+  "description": "mini tetris game created in canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariahCasciola/Tetris.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariahCasciola/Tetris/issues"
+  },
+  "homepage": "https://github.com/MariahCasciola/Tetris#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  }
+}
