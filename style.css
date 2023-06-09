@@ -3,3 +3,12 @@ body {
   color: white;
   text-align: center;
 }
+
+button {
+  color: black;
+  background-color: #1bfafa;
+  border-radius: 16px;
+  padding: 10px 20px;
+  margin: 4px 2px;
+  font-size: 20px;
+}
