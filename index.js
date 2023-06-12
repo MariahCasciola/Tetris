@@ -1,5 +1,6 @@
 // querySelector(), can select based on class or id
 const canvas = document.querySelector("#canvas");
+const button = document.querySelector("#button");
 const context = canvas.getContext("2d");
 const displayWidth = canvas.width;
 const displayHeight = canvas.height;
@@ -21,6 +22,37 @@ const colorPallete = {
   teeWee: "purple",
   default: "white",
 };
+
+// spawn tetromino game state
+const state = {};
+
+function resetState() {
+  state.x = 14;
+  state.y = -1;
+  state.deltaX = 0;
+  state.deltaY = 1;
+  state.delay = 160;
+}
+
+function loop() {
+  // simulate
+  state.x += state.deltaX;
+  state.y += state.deltaY;
+  // check for loose conditions
+  // draw
+  blackPlayScreen();
+  hero(state.x, state.y);
+  // orangeRicky(state.x, state.y);
+  // blueRicky(state.x, state.y);
+  // smashBoy(state.x, state.y);
+  // clevelandZ(state.x, state.y);
+  // rhodeIslandZ(state.x, state.y);
+  // teeWee(state.x, state.y);
+  // set up next loop
+  setTimeout(loop, state.delay);
+}
+
+// Create 4 rotation states for each tetronimo
 
 /*bricks*/
 function brickWalls() {
@@ -46,6 +78,18 @@ function blackPlayScreen() {
   context.fillRect(175, 0, (displayWidth / 24) * 10, displayHeight);
   setContextColorUsingPalleteName("default");
 }
+
+// other function calls (order goes from most behind layer to most forward layer)
+spackle();
+brickWalls();
+blackPlayScreen();
+
+// function draw() {
+//   // clears playing field before rendering below
+//   blackPlayScreen();
+//   // what do we want to multiply these parameters by to make it move down
+//   hero(12, 0);
+// }
 
 /* cells*/
 function drawCell(x, y, color) {
@@ -78,80 +122,78 @@ function setContextColorUsingPalleteName(name) {
 /*tetrominos, create a class for every tetromino*/
 function orangeRicky(x, y) {
   setContextColorUsingPalleteName("orangeRicky");
-  drawCell(x, y);
   drawCell(x - 1, y);
+  drawCell(x - 3, y);
   drawCell(x - 2, y);
-  drawCell(x, y + 1);
+  drawCell(x - 1, y + 1);
   setContextColorUsingPalleteName("default");
 }
 
 function blueRicky(x, y) {
   setContextColorUsingPalleteName("blueRicky");
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
+  drawCell(x - 3, y + 1);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
+  drawCell(x - 3, y);
   setContextColorUsingPalleteName("default");
 }
 
 function smashBoy(x, y) {
   setContextColorUsingPalleteName("smashBoy");
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 2, y);
+  drawCell(x - 3, y + 1);
+  drawCell(x - 3, y);
   setContextColorUsingPalleteName("default");
 }
 
 function clevelandZ(x, y) {
   setContextColorUsingPalleteName("clevelandZ");
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
+  drawCell(x - 3, y + 1);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
   setContextColorUsingPalleteName("default");
 }
 
 function rhodeIslandZ(x, y) {
   setContextColorUsingPalleteName("rhodeIslandZ");
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
+  drawCell(x - 1, y + 1);
+  drawCell(x - 2, y);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 3, y);
   setContextColorUsingPalleteName("default");
 }
 
 function teeWee(x, y) {
   setContextColorUsingPalleteName("teeWee");
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
-  drawCell(x, y);
+  drawCell(x - 3, y);
+  drawCell(x - 2, y);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y + 1);
   setContextColorUsingPalleteName("default");
 }
 
 function hero(x = 0, y = 0) {
   setContextColorUsingPalleteName("hero");
-  drawCell(x, y);
-  drawCell(x, y + 1);
-  drawCell(x, y + 2);
-  drawCell(x, y + 3);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
+  drawCell(x - 3, y);
+  drawCell(x - 4, y);
   setContextColorUsingPalleteName("default");
 }
 
-// other function calls (order goes from most behind layer to most forward layer)
-spackle();
-brickWalls();
-blackPlayScreen();
+// function startGame() {
+//   // blackPlayScreen();
+//   // button.addEventListener("click", (e) => {
+//   //   resetState();
+//   //   loop();
+//   // });
+// }
+// startGame();
 
-// function calls for tetrominos
-// increment the y to go down, 12 is the starting point for every tetromino that comes into
-orangeRicky(16, 1);
-blueRicky();
-smashBoy();
-clevelandZ();
-rhodeIslandZ();
-teeWee();
-hero(12, 2);
-hero(15, 7);
-hero(10, 5);
+function main() {
+  resetState();
+  loop();
+}
+main();
