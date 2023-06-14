@@ -34,23 +34,26 @@ function resetInitialState() {
   initalState.delay = 160;
 }
 
+// const heroOneState = {};
+// const heroTwoState = {};
+// const heroThreeState = {};
+
 function loop() {
   // simulate
   initalState.x += initalState.deltaX;
   initalState.y += initalState.deltaY;
-  // game conditions
-  // stops the initial tetronimo at the bottom
-  // if (initalState.x === 7 || initalState.y === 23) return;
+  // initial tetros stay in bounds of game
+  if (initalState.x < 10 || initalState.x > 17 || initalState.y === 23) return;
   // special: stops the initial hero at the bottom
-  if (initalState.x === 7 || initalState.y === 24) return;
+  // if (initalState.x === 7 || initalState.y === 24) return;
   blackPlayScreen();
-  // orangeRicky(initalState.x, initalState.y);
+  orangeRicky(initalState.x, initalState.y);
   // blueRicky(initalState.x, initalState.y);
   // smashBoy(initalState.x, initalState.y);
   // clevelandZ(initalState.x, initalState.y);
   // rhodeIslandZ(initalState.x, initalState.y);
   // teeWee(initalState.x, initalState.y);
-  hero(initalState.x, initalState.y);
+  // hero(initalState.x, initalState.y);
   // set up next loop
   setTimeout(loop, initalState.delay);
 }
@@ -69,7 +72,7 @@ function brickWalls() {
 }
 
 /*spackle between bricks*/
-function spackle() {
+function grout() {
   setContextColorUsingPalleteName("spackle");
   context.fillRect(0, 0, displayWidth, displayHeight);
   setContextColorUsingPalleteName("default");
@@ -83,7 +86,7 @@ function blackPlayScreen() {
 }
 
 // other function calls (order goes from most behind layer to most forward layer)
-spackle();
+grout();
 brickWalls();
 blackPlayScreen();
 
@@ -116,7 +119,7 @@ function setPalleteColor(name, color) {
   colorPallete[name] = color;
 }
 
-/*tetrominos, create a class for every tetromino*/
+/*tetrominos*/
 function orangeRicky(x, y) {
   setContextColorUsingPalleteName("orangeRicky");
   drawCell(x - 1, y);
@@ -180,11 +183,28 @@ function hero(x = 0, y = 0) {
   setContextColorUsingPalleteName("default");
 }
 
+function keyDown(event) {
+  // sets ASCI code to variable event
+  const { keyCode } = event;
+  let deltaX = 0;
+  let deltaY = 0;
+  // works for hero
+  console.log(keyCode);
+  if (keyCode === 68) deltaX = 1;
+  if (keyCode === 65) deltaX = -1;
+  if (keyCode === 83) deltaY = 1;
+  if (keyCode === 87) deltaY = 1;
+
+  initalState.deltaX = deltaX;
+  initalState.deltaY = deltaY;
+}
+
 function main() {
   blackPlayScreen();
   button.addEventListener("click", () => {
     resetInitialState();
     loop();
   });
+  window.addEventListener("keydown", keyDown);
 }
 main();
