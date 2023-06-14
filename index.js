@@ -23,33 +23,36 @@ const colorPallete = {
   default: "white",
 };
 
-// spawn tetromino game state
-const state = {};
+// spawn tetromino inital state
+const initalState = {};
 
-function resetState() {
-  state.x = 14;
-  state.y = -1;
-  state.deltaX = 0;
-  state.deltaY = 1;
-  state.delay = 160;
+function resetInitialState() {
+  initalState.x = 14;
+  initalState.y = -1;
+  initalState.deltaX = 0;
+  initalState.deltaY = 1;
+  initalState.delay = 160;
 }
 
 function loop() {
   // simulate
-  state.x += state.deltaX;
-  state.y += state.deltaY;
-  // check for loose conditions
-  // draw
+  initalState.x += initalState.deltaX;
+  initalState.y += initalState.deltaY;
+  // game conditions
+  // stops the initial tetronimo at the bottom
+  // if (initalState.x === 7 || initalState.y === 23) return;
+  // special: stops the initial hero at the bottom
+  if (initalState.x === 7 || initalState.y === 24) return;
   blackPlayScreen();
-  hero(state.x, state.y);
-  // orangeRicky(state.x, state.y);
-  // blueRicky(state.x, state.y);
-  // smashBoy(state.x, state.y);
-  // clevelandZ(state.x, state.y);
-  // rhodeIslandZ(state.x, state.y);
-  // teeWee(state.x, state.y);
+  // orangeRicky(initalState.x, initalState.y);
+  // blueRicky(initalState.x, initalState.y);
+  // smashBoy(initalState.x, initalState.y);
+  // clevelandZ(initalState.x, initalState.y);
+  // rhodeIslandZ(initalState.x, initalState.y);
+  // teeWee(initalState.x, initalState.y);
+  hero(initalState.x, initalState.y);
   // set up next loop
-  setTimeout(loop, state.delay);
+  setTimeout(loop, initalState.delay);
 }
 
 // Create 4 rotation states for each tetronimo
@@ -84,13 +87,6 @@ spackle();
 brickWalls();
 blackPlayScreen();
 
-// function draw() {
-//   // clears playing field before rendering below
-//   blackPlayScreen();
-//   // what do we want to multiply these parameters by to make it move down
-//   hero(12, 0);
-// }
-
 /* cells*/
 function drawCell(x, y, color) {
   if (color) context.fillStyle = color;
@@ -114,10 +110,11 @@ function setContextColorUsingPalleteName(name) {
   context.fillStyle = color;
 }
 
+// not used atm
 //allows us to set colors dynamically to our pallete
-// function setPalleteColor(name, color) {
-//   colorPallete[name] = color;
-// }
+function setPalleteColor(name, color) {
+  colorPallete[name] = color;
+}
 
 /*tetrominos, create a class for every tetromino*/
 function orangeRicky(x, y) {
@@ -183,17 +180,11 @@ function hero(x = 0, y = 0) {
   setContextColorUsingPalleteName("default");
 }
 
-// function startGame() {
-//   // blackPlayScreen();
-//   // button.addEventListener("click", (e) => {
-//   //   resetState();
-//   //   loop();
-//   // });
-// }
-// startGame();
-
 function main() {
-  resetState();
-  loop();
+  blackPlayScreen();
+  button.addEventListener("click", () => {
+    resetInitialState();
+    loop();
+  });
 }
 main();
