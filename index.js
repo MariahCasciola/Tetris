@@ -34,21 +34,57 @@ function resetInitialState() {
   initalState.delay = 160;
 }
 
-// const heroOneState = {};
-// const heroTwoState = {};
-// const heroThreeState = {};
+const stateTwo = {};
+
+function resetTwo() {
+  stateTwo.x = 14;
+  stateTwo.y = -1;
+  stateTwo.deltaX = 0;
+  stateTwo.deltaY = 1;
+  stateTwo.delay = 160;
+}
+
+const stateThree = {};
+
+function resetThree() {
+  stateThree.x = 14;
+  stateThree.y = -1;
+  stateThree.deltaX = 0;
+  stateThree.deltaY = 1;
+  stateThree.delay = 160;
+}
+
+const stateFour = {};
+
+function resetFour() {
+  stateFour.x = 14;
+  stateFour.y = -1;
+  stateFour.deltaX = 0;
+  stateFour.deltaY = 1;
+  stateFour.delay = 160;
+}
 
 function loop() {
   // simulate
   initalState.x += initalState.deltaX;
   initalState.y += initalState.deltaY;
+  stateTwo.x += stateTwo.deltaX;
+  stateTwo.y += stateTwo.deltaY;
+  stateThree.x += stateThree.deltaX;
+  stateThree.y += stateThree.deltaY;
+  stateFour.x += stateFour.deltaX;
+  stateFour.y += stateFour.deltaY;
   // initial tetros stay in bounds of game
-  if (initalState.x < 10 || initalState.x > 17 || initalState.y === 23) return;
-  // special: stops the initial hero at the bottom
-  // if (initalState.x === 7 || initalState.y === 24) return;
+  // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 23) return;
+  // special: stops the initial hero, orange2 at the bottom
+  if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
   blackPlayScreen();
-  orangeRicky(initalState.x, initalState.y);
+  // orangeRicky(initalState.x, initalState.y);
+  // orangeRickyTwo(stateTwo.x, stateTwo.y);
+  // orangeRickyThree(stateThree.x, stateThree.y);
+  // orangeRickyFour(stateFour.x, stateFour.y);
   // blueRicky(initalState.x, initalState.y);
+  // blueRickyTwo(initalState.x, initalState.y);
   // smashBoy(initalState.x, initalState.y);
   // clevelandZ(initalState.x, initalState.y);
   // rhodeIslandZ(initalState.x, initalState.y);
@@ -120,6 +156,8 @@ function setPalleteColor(name, color) {
 }
 
 /*tetrominos*/
+
+// orangeRicky
 function orangeRicky(x, y) {
   setContextColorUsingPalleteName("orangeRicky");
   drawCell(x - 1, y);
@@ -129,12 +167,48 @@ function orangeRicky(x, y) {
   setContextColorUsingPalleteName("default");
 }
 
+function orangeRickyTwo(x, y) {
+  setContextColorUsingPalleteName("orangeRicky");
+  drawCell(x - 2, y - 2);
+  drawCell(x - 3, y);
+  drawCell(x - 2, y);
+  drawCell(x - 2, y - 1);
+  setContextColorUsingPalleteName("default");
+}
+
+function orangeRickyThree(x, y) {
+  setContextColorUsingPalleteName("orangeRicky");
+  drawCell(x - 1, y - 1);
+  drawCell(x - 3, y - 2);
+  drawCell(x - 3, y - 1);
+  drawCell(x - 2, y - 1);
+  setContextColorUsingPalleteName("default");
+}
+
+function orangeRickyFour(x, y) {
+  setContextColorUsingPalleteName("orangeRicky");
+  drawCell(x - 2, y - 3);
+  drawCell(x - 3, y - 3);
+  drawCell(x - 3, y - 2);
+  drawCell(x - 3, y - 1);
+  setContextColorUsingPalleteName("default");
+}
+
 function blueRicky(x, y) {
   setContextColorUsingPalleteName("blueRicky");
   drawCell(x - 3, y + 1);
   drawCell(x - 1, y);
   drawCell(x - 2, y);
   drawCell(x - 3, y);
+  setContextColorUsingPalleteName("default");
+}
+
+function blueRickyTwo(x, y) {
+  setContextColorUsingPalleteName("blueRicky");
+  drawCell(x - 3, y - 2);
+  drawCell(x - 3, y);
+  drawCell(x - 2, y);
+  drawCell(x - 3, y - 1);
   setContextColorUsingPalleteName("default");
 }
 
@@ -184,25 +258,30 @@ function hero(x = 0, y = 0) {
 }
 
 function keyDown(event) {
-  // sets ASCI code to variable event
   const { keyCode } = event;
   let deltaX = 0;
   let deltaY = 0;
-  // works for hero
-  console.log(keyCode);
   if (keyCode === 68) deltaX = 1;
   if (keyCode === 65) deltaX = -1;
   if (keyCode === 83) deltaY = 1;
   if (keyCode === 87) deltaY = 1;
-
   initalState.deltaX = deltaX;
   initalState.deltaY = deltaY;
+  stateTwo.deltaX = deltaX;
+  stateTwo.deltaY = deltaY;
+  stateThree.deltaX = deltaX;
+  stateThree.deltaY = deltaY;
+  stateFour.deltaX = deltaX;
+  stateFour.deltaY = deltaY;
 }
 
 function main() {
   blackPlayScreen();
   button.addEventListener("click", () => {
     resetInitialState();
+    resetTwo();
+    resetThree();
+    resetFour();
     loop();
   });
   window.addEventListener("keydown", keyDown);
