@@ -92,6 +92,8 @@ function loop() {
   // rhodeIslandZ(initalState.x, initalState.y);
   // teeWee(initalState.x, initalState.y);
   // hero(initalState.x, initalState.y);
+  // heroTwo(initalState.x, initalState.y);
+  // heroThree(initalState.x, initalState.y);
   // set up next loop
   setTimeout(loop, initalState.delay);
 }
@@ -274,6 +276,23 @@ function hero(x = 0, y = 0) {
   drawCell(x - 2, y);
   drawCell(x - 3, y);
   drawCell(x - 4, y);
+  setContextColorUsingPalleteName("default");
+}
+function heroTwo(x, y) {
+  setContextColorUsingPalleteName("hero");
+  drawCell(x - 3, y - 1);
+  drawCell(x - 3, y - 2);
+  drawCell(x - 3, y - 3);
+  drawCell(x - 3, y - 4);
+  setContextColorUsingPalleteName("default");
+}
+
+function heroThree(x, y) {
+  setContextColorUsingPalleteName("hero");
+  drawCell(x - 2, y - 1);
+  drawCell(x - 2, y - 2);
+  drawCell(x - 2, y - 3);
+  drawCell(x - 2, y - 4);
   setContextColorUsingPalleteName("default");
 }
 
