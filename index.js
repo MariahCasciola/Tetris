@@ -85,6 +85,8 @@ function loop() {
   // orangeRickyFour(stateFour.x, stateFour.y);
   // blueRicky(initalState.x, initalState.y);
   // blueRickyTwo(initalState.x, initalState.y);
+  // blueRickyThree(initalState.x, initalState.y);
+  // blueRickyFour(initalState.x, initalState.y);
   // smashBoy(initalState.x, initalState.y);
   // clevelandZ(initalState.x, initalState.y);
   // rhodeIslandZ(initalState.x, initalState.y);
@@ -155,7 +157,7 @@ function setPalleteColor(name, color) {
   colorPallete[name] = color;
 }
 
-/*tetrominos*/
+/*tetrominos*/ //starting with initial, and rotating right
 
 // orangeRicky
 function orangeRicky(x, y) {
@@ -205,10 +207,28 @@ function blueRicky(x, y) {
 
 function blueRickyTwo(x, y) {
   setContextColorUsingPalleteName("blueRicky");
+  drawCell(x - 2, y - 2);
   drawCell(x - 3, y - 2);
+  drawCell(x - 2, y);
+  drawCell(x - 2, y - 1);
+  setContextColorUsingPalleteName("default");
+}
+
+function blueRickyThree(x, y) {
+  setContextColorUsingPalleteName("blueRicky");
+  drawCell(x - 1, y);
   drawCell(x - 3, y);
   drawCell(x - 2, y);
-  drawCell(x - 3, y - 1);
+  drawCell(x - 1, y - 1);
+  setContextColorUsingPalleteName("default");
+}
+
+function blueRickyFour(x, y) {
+  setContextColorUsingPalleteName("blueRicky");
+  drawCell(x - 2, y - 2);
+  drawCell(x - 2, y);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y - 1);
   setContextColorUsingPalleteName("default");
 }
 
