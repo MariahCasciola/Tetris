@@ -24,78 +24,51 @@ const colorPallete = {
 };
 
 // spawn tetromino inital state
-const initalState = {};
+const initialState = {};
 
 function resetInitialState() {
-  initalState.x = 14;
-  initalState.y = -1;
-  initalState.deltaX = 0;
-  initalState.deltaY = 1;
-  initalState.delay = 160;
-}
-
-const stateTwo = {};
-
-function resetTwo() {
-  stateTwo.x = 14;
-  stateTwo.y = -1;
-  stateTwo.deltaX = 0;
-  stateTwo.deltaY = 1;
-  stateTwo.delay = 160;
-}
-
-const stateThree = {};
-
-function resetThree() {
-  stateThree.x = 14;
-  stateThree.y = -1;
-  stateThree.deltaX = 0;
-  stateThree.deltaY = 1;
-  stateThree.delay = 160;
-}
-
-const stateFour = {};
-
-function resetFour() {
-  stateFour.x = 14;
-  stateFour.y = -1;
-  stateFour.deltaX = 0;
-  stateFour.deltaY = 1;
-  stateFour.delay = 160;
+  initialState.x = 14;
+  initialState.y = -1;
+  initialState.deltaX = 0;
+  initialState.deltaY = 1;
+  initialState.delay = 600;
 }
 
 function loop() {
   // simulate
-  initalState.x += initalState.deltaX;
-  initalState.y += initalState.deltaY;
-  stateTwo.x += stateTwo.deltaX;
-  stateTwo.y += stateTwo.deltaY;
-  stateThree.x += stateThree.deltaX;
-  stateThree.y += stateThree.deltaY;
-  stateFour.x += stateFour.deltaX;
-  stateFour.y += stateFour.deltaY;
   // initial tetros stay in bounds of game
-  // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 23) return;
-  // special: stops the initial hero, orange2 at the bottom
-  if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
+  if (initialState.x > 10 && initialState.x < 17) {
+    initialState.x += initialState.deltaX;
+  }
+  if (initialState.y === 22) {
+    return;
+  }
+  // this is what makes the tetromino go down
+  initialState.y += initialState.deltaY;
+
   blackPlayScreen();
-  // orangeRicky(initalState.x, initalState.y);
-  // orangeRickyTwo(stateTwo.x, stateTwo.y);
-  // orangeRickyThree(stateThree.x, stateThree.y);
-  // orangeRickyFour(stateFour.x, stateFour.y);
-  // blueRicky(initalState.x, initalState.y);
-  // blueRickyTwo(initalState.x, initalState.y);
-  // blueRickyThree(initalState.x, initalState.y);
-  // blueRickyFour(initalState.x, initalState.y);
-  // smashBoy(initalState.x, initalState.y);
-  // clevelandZ(initalState.x, initalState.y);
-  // rhodeIslandZ(initalState.x, initalState.y);
-  // teeWee(initalState.x, initalState.y);
-  // hero(initalState.x, initalState.y);
-  // heroTwo(initalState.x, initalState.y);
-  // heroThree(initalState.x, initalState.y);
+  // if initialState.y ===22, hits the bottom stops
+  orangeRicky(initialState.x, initialState.y);
+  // blueRicky(initialState.x, initialState.y);
+  // smashBoy(initialState.x, initialState.y);
+  // rhodeIslandZ(initialState.x, initialState.y);
+  // teeWee(initialState.x, initialState.y);
+  // clevelandZ(initialState.x, initialState.y);
+
+  // // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
+  // initialState.y += initialState.deltaY;
+  // orangeRickyTwo(initialState.x, initialState.y);
+  // orangeRickyThree(initialState.x, initialState.y);
+  // orangeRickyFour(initialState.x, initialState.y);
+  // blueRickyTwo(initialState.x, initialState.y);
+  // blueRickyThree(initialState.x, initialState.y);
+  // blueRickyFour(initialState.x, initialState.y);
+  // FUTURE CLEVELANDZS
+  // hero(initialState.x, initialState.y);
+  // heroTwo(initialState.x, initialState.y);
+  // heroThree(initialState.x, initialState.y);
   // set up next loop
-  setTimeout(loop, initalState.delay);
+  setTimeout(loop, initialState.delay);
 }
 
 // Create 4 rotation states for each tetronimo
@@ -252,6 +225,24 @@ function clevelandZ(x, y) {
   setContextColorUsingPalleteName("default");
 }
 
+function clevelandZTwo(x, y) {
+  setContextColorUsingPalleteName("clevelandZ");
+  // drawCell(x - 3, y + 1);
+  // drawCell(x - 2, y + 1);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
+  setContextColorUsingPalleteName("default");
+}
+
+function clevelandZThree(x, y) {
+  setContextColorUsingPalleteName("clevelandZ");
+  drawCell(x - 3, y + 1);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
+  setContextColorUsingPalleteName("default");
+}
+
 function rhodeIslandZ(x, y) {
   setContextColorUsingPalleteName("rhodeIslandZ");
   drawCell(x - 1, y + 1);
@@ -300,27 +291,23 @@ function keyDown(event) {
   const { keyCode } = event;
   let deltaX = 0;
   let deltaY = 0;
-  if (keyCode === 68) deltaX = 1;
-  if (keyCode === 65) deltaX = -1;
-  if (keyCode === 83) deltaY = 1;
-  if (keyCode === 87) deltaY = 1;
-  initalState.deltaX = deltaX;
-  initalState.deltaY = deltaY;
-  stateTwo.deltaX = deltaX;
-  stateTwo.deltaY = deltaY;
-  stateThree.deltaX = deltaX;
-  stateThree.deltaY = deltaY;
-  stateFour.deltaX = deltaX;
-  stateFour.deltaY = deltaY;
+  // console.log(keyCode)
+  if (keyCode === 68) deltaX = 1; // D
+  if (keyCode === 65) deltaX = -1; // A
+  if (keyCode === 83) deltaY = 1; // S
+  if (keyCode === 87) deltaY = 0; // W
+  if (initialState.x > 10 && initialState.x < 17) {
+    initialState.x += deltaX;
+  }
+  initialState.y += deltaY;
+  console.log("x", initialState.x);
+  console.log("y", initialState.y);
 }
 
 function main() {
   blackPlayScreen();
   button.addEventListener("click", () => {
     resetInitialState();
-    resetTwo();
-    resetThree();
-    resetFour();
     loop();
   });
   window.addEventListener("keydown", keyDown);
