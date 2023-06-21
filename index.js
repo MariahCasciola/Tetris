@@ -291,17 +291,12 @@ function keyDown(event) {
   const { keyCode } = event;
   let deltaX = 0;
   let deltaY = 0;
-  // console.log(keyCode)
-  if (keyCode === 68) deltaX = 1; // D
-  if (keyCode === 65) deltaX = -1; // A
+  if (keyCode === 68 && initialState.x < 17) deltaX = 1; // D
+  if (keyCode === 65 && initialState.x > 10) deltaX = -1; // A
   if (keyCode === 83) deltaY = 1; // S
   if (keyCode === 87) deltaY = 0; // W
-  if (initialState.x > 10 && initialState.x < 17) {
-    initialState.x += deltaX;
-  }
+  initialState.x += deltaX;
   initialState.y += deltaY;
-  console.log("x", initialState.x);
-  console.log("y", initialState.y);
 }
 
 function main() {
