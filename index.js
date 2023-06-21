@@ -35,15 +35,42 @@ function resetState() {
   state.currentRotationState = 1;
 }
 
-const rotationState = {
+const orangeRotationState = {
   1: orangeRickyOne,
   2: orangeRickyTwo,
   3: orangeRickyThree,
   4: orangeRickyFour,
 };
 
+const blueRotationState = {
+  1: blueRickyOne,
+  2: blueRickyTwo,
+  3: blueRickyThree,
+  4: blueRickyFour,
+};
+
+const clevelandZState = {
+  1: clevelandZOne,
+  2: clevelandZTwo,
+  3: clevelandZThree,
+};
+
+const rhodeIslandZState = {
+  1: rhodeIslandZOne,
+};
+
+const teeWeeState = {
+  1: teeWeeOne,
+};
+
+const heroState = {
+  1: heroOne,
+  2: heroTwo,
+  3: heroThree,
+};
+
 function loop() {
-  // initial tetros stay in bounds of game
+  //bounds of game
   if (state.x > 10 && state.x < 17) {
     state.x += state.deltaX;
   }
@@ -52,15 +79,14 @@ function loop() {
   }
   // this is what makes the tetromino go down
   state.y += state.deltaY;
-
   blackPlayScreen();
   // if initialState.y ===22, hits the bottom stops
-  orangeRicky(state.x, state.y, state.currentRotationState);
-  // blueRicky(state.x, state.y);
+  // orangeRicky(state.x, state.y, state.currentRotationState);
+  // blueRicky(state.x, state.y, state.currentRotationState);
   // smashBoy(state.x, state.y);
   // rhodeIslandZ(state.x, state.y);
   // teeWee(state.x, state.y);
-  // clevelandZ(state.x, state.y);
+  clevelandZ(state.x, state.y, state.currentRotationState);
   // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
   // orangeRickyTwo(state.x, state.y);
   // orangeRickyThree(state.x, state.y);
@@ -140,7 +166,7 @@ function setPalleteColor(name, color) {
 // orangeRicky
 function orangeRicky(x, y) {
   setContextColorUsingPalleteName("orangeRicky");
-  rotationState[state.currentRotationState](x, y);
+  orangeRotationState[state.currentRotationState](x, y);
   setContextColorUsingPalleteName("default");
 }
 
@@ -174,40 +200,39 @@ function orangeRickyFour(x, y) {
 
 function blueRicky(x, y) {
   setContextColorUsingPalleteName("blueRicky");
+  blueRotationState[state.currentRotationState](x, y);
+  setContextColorUsingPalleteName("default");
+}
+
+function blueRickyOne(x, y) {
   drawCell(x - 3, y + 1);
   drawCell(x - 1, y);
   drawCell(x - 2, y);
   drawCell(x - 3, y);
-  setContextColorUsingPalleteName("default");
 }
 
 function blueRickyTwo(x, y) {
-  setContextColorUsingPalleteName("blueRicky");
   drawCell(x - 2, y - 2);
   drawCell(x - 3, y - 2);
   drawCell(x - 2, y);
   drawCell(x - 2, y - 1);
-  setContextColorUsingPalleteName("default");
 }
 
 function blueRickyThree(x, y) {
-  setContextColorUsingPalleteName("blueRicky");
   drawCell(x - 1, y);
   drawCell(x - 3, y);
   drawCell(x - 2, y);
   drawCell(x - 1, y - 1);
-  setContextColorUsingPalleteName("default");
 }
 
 function blueRickyFour(x, y) {
-  setContextColorUsingPalleteName("blueRicky");
   drawCell(x - 2, y - 2);
   drawCell(x - 2, y);
   drawCell(x - 1, y);
   drawCell(x - 2, y - 1);
-  setContextColorUsingPalleteName("default");
 }
 
+// no rotation necessary
 function smashBoy(x, y) {
   setContextColorUsingPalleteName("smashBoy");
   drawCell(x - 2, y + 1);
@@ -219,57 +244,70 @@ function smashBoy(x, y) {
 
 function clevelandZ(x, y) {
   setContextColorUsingPalleteName("clevelandZ");
+  clevelandZState[state.currentRotationState](x, y);
+  setContextColorUsingPalleteName("default");
+}
+
+function clevelandZOne(x, y) {
   drawCell(x - 3, y + 1);
   drawCell(x - 2, y + 1);
   drawCell(x - 1, y);
   drawCell(x - 2, y);
-  setContextColorUsingPalleteName("default");
 }
 
 function clevelandZTwo(x, y) {
-  setContextColorUsingPalleteName("clevelandZ");
-  // drawCell(x - 3, y + 1);
-  // drawCell(x - 2, y + 1);
-  drawCell(x - 1, y);
-  drawCell(x - 2, y);
-  setContextColorUsingPalleteName("default");
-}
-
-function clevelandZThree(x, y) {
-  setContextColorUsingPalleteName("clevelandZ");
   drawCell(x - 3, y + 1);
   drawCell(x - 2, y + 1);
   drawCell(x - 1, y);
   drawCell(x - 2, y);
-  setContextColorUsingPalleteName("default");
+}
+
+function clevelandZThree(x, y) {
+  drawCell(x - 3, y + 1);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
 }
 
 function rhodeIslandZ(x, y) {
   setContextColorUsingPalleteName("rhodeIslandZ");
+  rhodeIslandZState[state.currentRotationState](x, y);
+  setContextColorUsingPalleteName("default");
+}
+
+function rhodeIslandZOne(x, y) {
   drawCell(x - 1, y + 1);
   drawCell(x - 2, y);
   drawCell(x - 2, y + 1);
   drawCell(x - 3, y);
-  setContextColorUsingPalleteName("default");
 }
 
 function teeWee(x, y) {
   setContextColorUsingPalleteName("teeWee");
+  teeWeeState[state.currentRotationState](x, y);
+  setContextColorUsingPalleteName("default");
+}
+
+function teeWeeOne(x, y) {
   drawCell(x - 3, y);
   drawCell(x - 2, y);
   drawCell(x - 1, y);
   drawCell(x - 2, y + 1);
+}
+
+function hero(x, y) {
+  setContextColorUsingPalleteName("hero");
+  heroState[state.currentRotationState](x, y);
   setContextColorUsingPalleteName("default");
 }
 
-function hero(x = 0, y = 0) {
-  setContextColorUsingPalleteName("hero");
+function heroOne(x, y) {
   drawCell(x - 1, y);
   drawCell(x - 2, y);
   drawCell(x - 3, y);
   drawCell(x - 4, y);
-  setContextColorUsingPalleteName("default");
 }
+
 function heroTwo(x, y) {
   setContextColorUsingPalleteName("hero");
   drawCell(x - 3, y - 1);
@@ -292,7 +330,6 @@ function keyDown(event) {
   const { keyCode } = event;
   let deltaX = 0;
   let deltaY = 0;
-  // console.log(keyCode);
   if (keyCode === 68 && state.x < 17) deltaX = 1; // D
   if (keyCode === 65 && state.x > 10) deltaX = -1; // A
   if (keyCode === 83) deltaY = 1; // S
