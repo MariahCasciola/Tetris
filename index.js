@@ -61,9 +61,7 @@ function loop() {
   // rhodeIslandZ(state.x, state.y);
   // teeWee(state.x, state.y);
   // clevelandZ(state.x, state.y);
-
   // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
-  state.y += state.deltaY;
   // orangeRickyTwo(state.x, state.y);
   // orangeRickyThree(state.x, state.y);
   // orangeRickyFour(state.x, state.y);
