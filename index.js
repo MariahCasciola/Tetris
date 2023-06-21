@@ -24,54 +24,59 @@ const colorPallete = {
 };
 
 // spawn tetromino inital state
-const initialState = {};
+const state = {};
 
-function resetInitialState() {
-  initialState.x = 14;
-  initialState.y = -1;
-  initialState.deltaX = 0;
-  initialState.deltaY = 1;
-  initialState.delay = 600;
+function resetState() {
+  state.x = 14;
+  state.y = -1;
+  state.deltaX = 0;
+  state.deltaY = 1;
+  state.delay = 1000;
+  state.currentRotationState = 1;
 }
 
+const rotationState = {
+  1: orangeRickyOne,
+  2: orangeRickyTwo,
+  3: orangeRickyThree,
+  4: orangeRickyFour,
+};
+
 function loop() {
-  // simulate
   // initial tetros stay in bounds of game
-  if (initialState.x > 10 && initialState.x < 17) {
-    initialState.x += initialState.deltaX;
+  if (state.x > 10 && state.x < 17) {
+    state.x += state.deltaX;
   }
-  if (initialState.y === 22) {
+  if (state.y === 22) {
     return;
   }
   // this is what makes the tetromino go down
-  initialState.y += initialState.deltaY;
+  state.y += state.deltaY;
 
   blackPlayScreen();
   // if initialState.y ===22, hits the bottom stops
-  orangeRicky(initialState.x, initialState.y);
-  // blueRicky(initialState.x, initialState.y);
-  // smashBoy(initialState.x, initialState.y);
-  // rhodeIslandZ(initialState.x, initialState.y);
-  // teeWee(initialState.x, initialState.y);
-  // clevelandZ(initialState.x, initialState.y);
+  orangeRicky(state.x, state.y, state.currentRotationState);
+  // blueRicky(state.x, state.y);
+  // smashBoy(state.x, state.y);
+  // rhodeIslandZ(state.x, state.y);
+  // teeWee(state.x, state.y);
+  // clevelandZ(state.x, state.y);
 
-  // // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
-  // initialState.y += initialState.deltaY;
-  // orangeRickyTwo(initialState.x, initialState.y);
-  // orangeRickyThree(initialState.x, initialState.y);
-  // orangeRickyFour(initialState.x, initialState.y);
-  // blueRickyTwo(initialState.x, initialState.y);
-  // blueRickyThree(initialState.x, initialState.y);
-  // blueRickyFour(initialState.x, initialState.y);
+  // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
+  state.y += state.deltaY;
+  // orangeRickyTwo(state.x, state.y);
+  // orangeRickyThree(state.x, state.y);
+  // orangeRickyFour(state.x, state.y);
+  // blueRickyTwo(state.x, state.y);
+  // blueRickyThree(state.x, state.y);
+  // blueRickyFour(state.x, state.y);
   // FUTURE CLEVELANDZS
-  // hero(initialState.x, initialState.y);
-  // heroTwo(initialState.x, initialState.y);
-  // heroThree(initialState.x, initialState.y);
+  // hero(state.x, state.y);
+  // heroTwo(state.x, state.y);
+  // heroThree(state.x, state.y);
   // set up next loop
-  setTimeout(loop, initialState.delay);
+  setTimeout(loop, state.delay);
 }
-
-// Create 4 rotation states for each tetronimo
 
 /*bricks*/
 function brickWalls() {
@@ -132,43 +137,41 @@ function setPalleteColor(name, color) {
   colorPallete[name] = color;
 }
 
-/*tetrominos*/ //starting with initial, and rotating right
+/*tetrominos*/
 
 // orangeRicky
 function orangeRicky(x, y) {
   setContextColorUsingPalleteName("orangeRicky");
+  rotationState[state.currentRotationState](x, y);
+  setContextColorUsingPalleteName("default");
+}
+
+function orangeRickyOne(x, y) {
   drawCell(x - 1, y);
   drawCell(x - 3, y);
   drawCell(x - 2, y);
   drawCell(x - 1, y + 1);
-  setContextColorUsingPalleteName("default");
 }
 
 function orangeRickyTwo(x, y) {
-  setContextColorUsingPalleteName("orangeRicky");
   drawCell(x - 2, y - 2);
   drawCell(x - 3, y);
   drawCell(x - 2, y);
   drawCell(x - 2, y - 1);
-  setContextColorUsingPalleteName("default");
 }
 
 function orangeRickyThree(x, y) {
-  setContextColorUsingPalleteName("orangeRicky");
   drawCell(x - 1, y - 1);
   drawCell(x - 3, y - 2);
   drawCell(x - 3, y - 1);
   drawCell(x - 2, y - 1);
-  setContextColorUsingPalleteName("default");
 }
 
 function orangeRickyFour(x, y) {
-  setContextColorUsingPalleteName("orangeRicky");
   drawCell(x - 2, y - 3);
   drawCell(x - 3, y - 3);
   drawCell(x - 3, y - 2);
   drawCell(x - 3, y - 1);
-  setContextColorUsingPalleteName("default");
 }
 
 function blueRicky(x, y) {
@@ -291,20 +294,33 @@ function keyDown(event) {
   const { keyCode } = event;
   let deltaX = 0;
   let deltaY = 0;
-  if (keyCode === 68 && initialState.x < 17) deltaX = 1; // D
-  if (keyCode === 65 && initialState.x > 10) deltaX = -1; // A
+  // console.log(keyCode);
+  if (keyCode === 68 && state.x < 17) deltaX = 1; // D
+  if (keyCode === 65 && state.x > 10) deltaX = -1; // A
   if (keyCode === 83) deltaY = 1; // S
-  if (keyCode === 87) deltaY = 0; // W
-  initialState.x += deltaX;
-  initialState.y += deltaY;
+  state.x += deltaX;
+  state.y += deltaY;
+}
+
+function handleRotation(event) {
+  // if 87 is pressed change rotation state
+  const { keyCode } = event;
+  // W
+  if (keyCode === 87) {
+    state.currentRotationState += 1;
+    if (state.currentRotationState === 4) {
+      state.currentRotationState = 1;
+    }
+  }
 }
 
 function main() {
   blackPlayScreen();
   button.addEventListener("click", () => {
-    resetInitialState();
+    resetState();
     loop();
   });
   window.addEventListener("keydown", keyDown);
+  window.addEventListener("keydown", handleRotation);
 }
 main();
