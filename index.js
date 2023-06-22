@@ -53,20 +53,28 @@ const clevelandZState = {
   1: clevelandZOne,
   2: clevelandZTwo,
   3: clevelandZThree,
+  4: clevelandZFour,
 };
 
 const rhodeIslandZState = {
   1: rhodeIslandZOne,
+  2: rhodeIslandZTwo,
+  3: rhodeIslandZThree,
+  4: rhodeIslandZFour,
 };
 
 const teeWeeState = {
   1: teeWeeOne,
+  2: teeWeeTwo,
+  3: teeWeeThree,
+  4: teeWeeFour,
 };
 
 const heroState = {
   1: heroOne,
   2: heroTwo,
   3: heroThree,
+  4: heroFour,
 };
 
 function loop() {
@@ -81,23 +89,14 @@ function loop() {
   state.y += state.deltaY;
   blackPlayScreen();
   // if initialState.y ===22, hits the bottom stops
-  // orangeRicky(state.x, state.y, state.currentRotationState);
+  orangeRicky(state.x, state.y, state.currentRotationState);
   // blueRicky(state.x, state.y, state.currentRotationState);
   // smashBoy(state.x, state.y);
-  // rhodeIslandZ(state.x, state.y);
-  // teeWee(state.x, state.y);
-  clevelandZ(state.x, state.y, state.currentRotationState);
+  // rhodeIslandZ(state.x, state.y, state.currentRotationState);
+  // teeWee(state.x, state.y, state.currentRotationState);
+  // clevelandZ(state.x, state.y, state.currentRotationState);
   // if (initalState.x < 10 || initalState.x > 17 || initalState.y === 24) return;
-  // orangeRickyTwo(state.x, state.y);
-  // orangeRickyThree(state.x, state.y);
-  // orangeRickyFour(state.x, state.y);
-  // blueRickyTwo(state.x, state.y);
-  // blueRickyThree(state.x, state.y);
-  // blueRickyFour(state.x, state.y);
-  // FUTURE CLEVELANDZS
-  // hero(state.x, state.y);
-  // heroTwo(state.x, state.y);
-  // heroThree(state.x, state.y);
+  // hero(state.x, state.y, state.currentRotationState);
   // set up next loop
   setTimeout(loop, state.delay);
 }
@@ -256,8 +255,8 @@ function clevelandZOne(x, y) {
 }
 
 function clevelandZTwo(x, y) {
-  drawCell(x - 3, y + 1);
-  drawCell(x - 2, y + 1);
+  drawCell(x - 2, y - 1);
+  drawCell(x - 1, y + 1);
   drawCell(x - 1, y);
   drawCell(x - 2, y);
 }
@@ -265,6 +264,13 @@ function clevelandZTwo(x, y) {
 function clevelandZThree(x, y) {
   drawCell(x - 3, y + 1);
   drawCell(x - 2, y + 1);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
+}
+
+function clevelandZFour(x, y) {
+  drawCell(x - 2, y - 1);
+  drawCell(x - 1, y + 1);
   drawCell(x - 1, y);
   drawCell(x - 2, y);
 }
@@ -282,6 +288,27 @@ function rhodeIslandZOne(x, y) {
   drawCell(x - 3, y);
 }
 
+function rhodeIslandZTwo(x, y) {
+  drawCell(x - 1, y - 1);
+  drawCell(x - 2, y);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 1, y);
+}
+
+function rhodeIslandZThree(x, y) {
+  drawCell(x - 1, y + 1);
+  drawCell(x - 2, y);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 3, y);
+}
+
+function rhodeIslandZFour(x, y) {
+  drawCell(x - 1, y - 1);
+  drawCell(x - 2, y);
+  drawCell(x - 2, y + 1);
+  drawCell(x - 1, y);
+}
+
 function teeWee(x, y) {
   setContextColorUsingPalleteName("teeWee");
   teeWeeState[state.currentRotationState](x, y);
@@ -293,6 +320,25 @@ function teeWeeOne(x, y) {
   drawCell(x - 2, y);
   drawCell(x - 1, y);
   drawCell(x - 2, y + 1);
+}
+
+function teeWeeTwo(x, y) {
+  drawCell(x - 3, y);
+  drawCell(x - 2, y);
+  drawCell(x - 2, y - 1);
+  drawCell(x - 2, y + 1);
+}
+function teeWeeThree(x, y) {
+  drawCell(x - 3, y + 1);
+  drawCell(x - 2, y);
+  drawCell(x - 1, y + 1);
+  drawCell(x - 2, y + 1);
+}
+function teeWeeFour(x, y) {
+  drawCell(x - 2, y + 1);
+  drawCell(x - 2, y - 1);
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
 }
 
 function hero(x, y) {
@@ -309,22 +355,33 @@ function heroOne(x, y) {
 }
 
 function heroTwo(x, y) {
-  setContextColorUsingPalleteName("hero");
-  drawCell(x - 3, y - 1);
-  drawCell(x - 3, y - 2);
-  drawCell(x - 3, y - 3);
-  drawCell(x - 3, y - 4);
-  setContextColorUsingPalleteName("default");
-}
-
-function heroThree(x, y) {
-  setContextColorUsingPalleteName("hero");
   drawCell(x - 2, y - 1);
   drawCell(x - 2, y - 2);
   drawCell(x - 2, y - 3);
   drawCell(x - 2, y - 4);
-  setContextColorUsingPalleteName("default");
 }
+
+function heroThree(x, y) {
+  drawCell(x - 1, y);
+  drawCell(x - 2, y);
+  drawCell(x - 3, y);
+  drawCell(x - 4, y);
+}
+// drawCell(x - 3, y - 1);
+// drawCell(x - 3, y - 2);
+// drawCell(x - 3, y - 3);
+// drawCell(x - 3, y - 4);
+
+function heroFour(x, y) {
+  drawCell(x - 2, y - 1);
+  drawCell(x - 2, y - 2);
+  drawCell(x - 2, y - 3);
+  drawCell(x - 2, y - 4);
+}
+// drawCell(x - 3, y - 1);
+// drawCell(x - 3, y - 2);
+// drawCell(x - 3, y - 3);
+// drawCell(x - 3, y - 4);
 
 function keyDown(event) {
   const { keyCode } = event;
@@ -343,7 +400,7 @@ function handleRotation(event) {
   // W
   if (keyCode === 87) {
     state.currentRotationState += 1;
-    if (state.currentRotationState === 4) {
+    if (state.currentRotationState === 5) {
       state.currentRotationState = 1;
     }
   }
